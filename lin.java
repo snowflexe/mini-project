@@ -63,6 +63,47 @@ public class lin {
         return true;
     }
 	
+	public static int dateCatch(){
+		
+		Scanner input = new Scanner(System.in);
+		
+		int again =1;
+		int fresh =0;
+		
+		while(again==1) {
+			System.out.println("What date is today?");
+			System.out.println("Example: 12 January 2024. Date = 12");
+			int todaydate = input.nextInt();
+			input.nextLine();
+			
+			System.out.println("When did you catch the fish?");
+			System.out.println("Example: 12 January 2024. Date = 12");
+			int datecatch = input.nextInt();
+			input.nextLine();
+			
+			int timecatch = todaydate - datecatch;
+			
+			
+			if (timecatch>=4&&timecatch<7) {
+				fresh =0;
+				again=0;
+			}
+			else if (timecatch>=7) {
+				fresh =2;
+				again=0;
+			}
+			else if (timecatch<4&& timecatch>=0){
+				fresh =1;
+				again=0;
+			}
+			else {
+				System.out.println("Wow, you can see through the future.Please enter a valid date.");
+				again=1;
+			}
+		}
+		return fresh;
+	}
+	
 	public static void selling(String username) {
 		
 		Scanner input = new Scanner(System.in);
@@ -89,11 +130,15 @@ public class lin {
             input.nextLine();
         }
 		
+		
 		System.out.print("Please enter the quantity of your fish.");
 		int quantitySell = input.nextInt();
 		input.nextLine();
 		
 		for (int i =0; i<quantitySell;i++) {
+			
+			int fresh = dateCatch();
+			
 			System.out.print("Please enter the weight of your fish in kg #" + (i+1) + ": ");
 			fishWeight = input.nextDouble();
 			input.nextLine();
@@ -173,7 +218,21 @@ public class lin {
 				}           
 			}
 			
+			
 			double priceForFish = fishWeight * priceperkg;
+			
+			if (fresh==0) {
+				System.out.println("Your fish is not fresh enough. This fish's price will be deducted 15%");
+				priceForFish = priceForFish*0.85;
+			}
+			else if (fresh ==1) {
+				System.out.println("Your fish is still fresh.");
+			}
+			else if(fresh ==2) {
+				System.out.println("Sorry, your fish is not fresh anymore. We could not accept this.");
+				priceForFish = priceForFish *0.0;
+			}
+			
 	        totalprice += priceForFish;
 	        System.out.println("The price for fish #" + (i + 1) + " (" +speciesname[i]+", weight: " + fishWeight + "kg) is: RM" + priceForFish);
 	        
@@ -201,7 +260,7 @@ public class lin {
 		
 		System.out.println("Please enter the type of fish you are buying.");
 		System.out.println("1. Freshwater Fish");
-		System.out.print("2. Saltwater Fish");
+		System.out.println("2. Saltwater Fish");
 		int type = input.nextInt();
 		input.nextLine();
 		
@@ -301,8 +360,8 @@ public class lin {
 			System.out.print("Please enter the weight of your fish in kg #" + (i+1) + ": ");
 			fishData[i][0] = input.nextDouble();
 			input.nextLine();
-	        if (fishData[i][0]>=5.0) {
-				System.out.print("Do you require different size of fish?(No=0; Yes=1)");
+	        if (fishData[i][0]>5.0) {
+				System.out.println("Do you require different size of fish?(No=0; Yes=1)");
 				int sizerequire = input.nextInt();
 				if (sizerequire==1) {
 					priceperkg = FishSize(priceperkg);
@@ -323,9 +382,16 @@ public class lin {
         if (totalprice>=200.0) {
         	totalprice= Discount(totalprice);
         }
+        else if(totalprice >= 100 && totalprice <200.0) {
+			totalprice = totalprice *0.95;
+			System.out.println("You are eligible for 5% off! ");
+		}
         else {
         	totalprice = totalprice+0.0;
         }
+        
+        
+        
         System.out.println("You are buying " + quantityBuy + " " + fishtype + " with a total price of RM" + Math.round(totalprice*100.0)/100.0);
         System.out.println("Are you sure to buy them? (No=0; Yes=1)");
         int confirm = input.nextInt();
@@ -411,18 +477,32 @@ public class lin {
 			totalprice = totalprice *0.9;
 			System.out.println("You are eligible for 10% off! ");
 		}
-	
+		
 	return totalprice;
 
 	}
 	
-	public static void readsellhistory() {
+	public static void readsellhistory(String username) {
 		try {
 			File sellhistory = new File("history.txt");
 			Scanner reader = new Scanner(sellhistory);
+			int userfound=0;
+			int line = 0;
+			
 			while(reader.hasNextLine()) {
 				String data = reader.nextLine();
-				System.out.println(data);
+				if (data.startsWith(username)) {
+					System.out.println(data);
+					userfound=1;
+					line=3;
+				}
+				else if(line>0) {
+					System.out.println(data);
+					line--;
+				}
+			}
+			if (userfound ==0){
+				System.out.println("No records found for user: " + username);
 			}
 			reader.close();
 		}catch(FileNotFoundException e) {
@@ -431,13 +511,27 @@ public class lin {
 		}
 	}
 	
-	public static void readbuyhistory() {
+	public static void readbuyhistory(String username) {
 		try {
 			File sellhistory = new File("buyhistory.txt");
 			Scanner reader = new Scanner(sellhistory);
+			int userfound=0;
+			int line = 0;
+			
 			while(reader.hasNextLine()) {
 				String data = reader.nextLine();
-				System.out.println(data);
+				if (data.startsWith(username)) {
+					System.out.println(data);
+					userfound=1;
+					line =3;
+				}
+				else if(line>0) {
+					System.out.println(data);
+					line--;
+				}
+			}
+			if (userfound ==0){
+				System.out.println("No records found for user: " + username);
 			}
 			reader.close();
 		}catch(FileNotFoundException e) {
@@ -502,13 +596,13 @@ public class lin {
 	        	
 	        	if (action ==1) {
 	        		selling(username);
-	        		System.out.print("Do you have another trade to make? (No=0; Yes=1)");
+	        		System.out.print("Do you have another things to do? (No=0; Yes=1)");
         			main = input.nextInt();
         			input.nextLine();
 	        	}
 	        	else if(action ==2) {
 	        		buying(username);
-	        		System.out.print("Do you have another trade to make? (No=0; Yes=1)");
+	        		System.out.print("Do you have another things to doe? (No=0; Yes=1)");
         			main = input.nextInt();
         			input.nextLine();
 	        	}
@@ -519,9 +613,9 @@ public class lin {
 	        		historyrequest = input.nextInt();
 	        		input.nextLine();
 	        		if (historyrequest == 1) {
-	        			readsellhistory();
+	        			readsellhistory(username);
 	        		}else if (historyrequest == 2) {
-	        			readbuyhistory();
+	        			readbuyhistory(username);
 	        		}
 	        		
 	        	}

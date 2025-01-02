@@ -1,16 +1,16 @@
-Lin's Sales History:
+lin's Sales History:
+Fish Type: Freshwater Fish
 Total Price: RM20.0
 ----------------------------------
-Lin's Sales History:
+oo's Sales History:
+Fish Type: Freshwater Fish
 Total Price: RM20.0
-----------------------------------
-Lin's Sales History:
-Total Price: RM15.0
-----------------------------------
-Lin's Sales History:
-Total Price: RM40.0
 ----------------------------------
 lin's Sales History:
+Fish Type: Freshwater Fish
+Total Price: RM20.0
+----------------------------------
+f's Sales History:
 Fish Type: Freshwater Fish
 Total Price: RM20.0
 ----------------------------------

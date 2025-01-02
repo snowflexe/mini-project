@@ -14,3 +14,7 @@ lin's Buying History:
 Fish Type: Freshwater Fish
 Total Price: RM28.8
 ----------------------------------
+f's Buying History:
+Fish Type: Saltwater Fish
+Total Price: RM123.87999999999997
+----------------------------------
