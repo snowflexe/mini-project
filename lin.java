@@ -55,7 +55,7 @@ public class lin {
         try (FileWriter writer = new FileWriter("userinfo.txt", true)){
             writer.write(newusername + ":" + newpassword + "\n");
             System.out.println("User registered successfully!");
-            System.out.println("Please restart the program to log in.");
+            System.out.println("Please proceed to log in.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -530,6 +530,10 @@ public class lin {
 	        		main=0;
 	        	}
 	        }
+	        
+	        System.out.print("Do you want to perform another action? (No =0; Yes=1)");
+	        again = input.nextInt();
+	        input.nextLine();
 	        
 		}while(again == 1);
 	}
