@@ -8,12 +8,14 @@ import java.io.IOException;
 
 public class lin {
 	
+	//intro output to the system JiaYin
 	public static void intro() {
         System.out.printf ("----------------------------------\n");
         System.out.println ("Welcome to The Pekan Fishermen's Market!");
         System.out.printf ("----------------------------------\n");
 	}
 	
+	//login Iman
 	public static boolean checkUser(String username,String password) {
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))){
@@ -37,7 +39,7 @@ public class lin {
 		return false;
 	}
 	
-	
+	//register Iman
 	public static boolean newUser(String newusername,String newpassword,int main) {
         try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))){
             String line ;
@@ -69,6 +71,7 @@ public class lin {
         return true;
     }
 	
+	//when the fish is catch Lin
 	public static int dateCatch(){
 		
 		Scanner input = new Scanner(System.in);
@@ -110,6 +113,7 @@ public class lin {
 		return fresh;
 	}
 	
+	// main process selling Lin
 	public static void selling(String username) {
 		
 		Scanner input = new Scanner(System.in);
@@ -260,7 +264,7 @@ public class lin {
 		
 	}
 		
-
+	//main process buying Lin
 	public static void buying(String username) {
 		Scanner input = new Scanner(System.in);
 		
@@ -412,6 +416,7 @@ public class lin {
 
 	}
 	
+	//fishsize consideration JiaYin
 	public static double FishSize(double priceperkg) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -449,6 +454,7 @@ public class lin {
 		return priceperkg;
 	}
 	
+	//saving record for selling Lin
 	public static void sellhistory(String username,String fishtype,double totalprice) {
 		try (FileWriter writer = new FileWriter("history.txt", true)) {
             writer.write(username + "'s Sales History:\n");
@@ -463,6 +469,7 @@ public class lin {
         }
 	}
 	
+	//saving record for buying Lin
 	public static void buyhistory(String username,String fishtype, double totalprice) {
 		try (FileWriter writer = new FileWriter("buyhistory.txt", true)) {
             writer.write(username + "'s Buying History:\n");
@@ -477,6 +484,7 @@ public class lin {
         }
 	}
 	
+	//discount calculation JiaYin
 	public static double Discount (double totalprice) {
 	
 		if (totalprice >= 200) {
@@ -488,6 +496,7 @@ public class lin {
 
 	}
 	
+	//view selling history Lin
 	public static void readsellhistory(String username) {
 		try {
 			File sellhistory = new File("history.txt");
@@ -517,6 +526,7 @@ public class lin {
 		}
 	}
 	
+	//view buying history Lin
 	public static void readbuyhistory(String username) {
 		try {
 			File buyhistory = new File("buyhistory.txt");
@@ -546,6 +556,7 @@ public class lin {
 		}
 	}
 	
+	//deleting selling history Lin
 	public static void deletesellhistory(String username) {
 		
 		File sellhistory = new File("history.txt");
@@ -600,6 +611,7 @@ public class lin {
 	    }
 	}
 	
+	//deleting buying history Lin
 	public static void deletebuyhistory(String username) {
 		
 		File buyhistory = new File("buyhistory.txt");
@@ -652,11 +664,13 @@ public class lin {
 		
 	}
 	
+	//closing output JiaYin
 	public static void cancelTrade() {
         System.out.println("");
 		System.out.println("Thank you for using our system. Goodbye!");
 	}
 	
+	//main function Lin+Sharvesh
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -671,6 +685,7 @@ public class lin {
 		intro();
 		
 		do{
+			//Sharvesh
 			System.out.println("Welcome to the System!");
 			System.out.println("1. Register");
             System.out.println("2. Login");
@@ -679,6 +694,7 @@ public class lin {
 	        int choice = input.nextInt();
 	        input.nextLine();
 			
+	        //Lin
 	        if (choice == 1) {
 		        	System.out.print("Enter your Username: ");
 		    		String newusername = input.nextLine();
@@ -706,6 +722,7 @@ public class lin {
 	        		}
 	        		
 	        }
+	        //Sharvesh
 	        else if(choice ==3) {
 	        	System.out.println("Exiting...");
 	        	main=0;
@@ -717,6 +734,7 @@ public class lin {
 	        		main=0;
 			}
 	        
+	        //Lin
 	        while(main ==1) {
 	        	System.out.println("Are you selling or buying Fishes? ");
 	        	System.out.println("1. Sell");
