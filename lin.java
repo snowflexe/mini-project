@@ -519,8 +519,8 @@ public class lin {
 	
 	public static void readbuyhistory(String username) {
 		try {
-			File sellhistory = new File("buyhistory.txt");
-			Scanner reader = new Scanner(sellhistory);
+			File buyhistory = new File("buyhistory.txt");
+			Scanner reader = new Scanner(buyhistory);
 			int userfound=0;
 			int line = 0;
 			
@@ -546,6 +546,112 @@ public class lin {
 		}
 	}
 	
+	public static void deletesellhistory(String username) {
+		
+		File sellhistory = new File("history.txt");
+		File tempfile= new File("tempfile.txt");
+		
+		try {
+			Scanner reader = new Scanner(sellhistory);
+			FileWriter writer = new FileWriter(tempfile);
+			
+			int userfound=0;
+			int line = 0;
+			
+			while(reader.hasNextLine()) {
+				String data = reader.nextLine();
+				if (data.startsWith(username)) {
+					userfound=1;
+					line =3;
+					continue;
+				}
+				else if(line>0) {
+					line--;
+					continue;
+				}
+				writer.write(data + System.lineSeparator());
+				
+			}
+			if (userfound ==0){
+				System.out.println("No records found for user: " + username);
+			}
+			else {
+				System.out.println("Records deleted for user: " + username);
+			}
+			reader.close();
+			writer.close();
+		}catch(FileNotFoundException e) {
+			System.out.println("An error occured");
+			e.printStackTrace();
+		}catch (IOException e) {
+	        System.out.println("An error occurred while processing the file.");
+	        e.printStackTrace();
+	    }
+		if (sellhistory.delete()) {
+			if (tempfile.renameTo(sellhistory)) {
+		        System.out.println("File updated successfully.");
+		    }
+			else {
+		        System.out.println("An error occurred while updating the file.");
+		    }
+		}
+		else {
+	        System.out.println("An error occurred while deleting the original file.");
+	    }
+	}
+	
+	public static void deletebuyhistory(String username) {
+		
+		File buyhistory = new File("buyhistory.txt");
+		File tempfile= new File("tempfile.txt");
+		
+		try (Scanner reader = new Scanner(buyhistory);
+			FileWriter writer = new FileWriter(tempfile)){
+			
+			int userfound=0;
+			int line = 0;
+			
+			while(reader.hasNextLine()) {
+				String data = reader.nextLine();
+				if (data.startsWith(username)) {
+					userfound=1;
+					line =3;
+					continue;
+				}
+				else if(line>0) {
+					line--;
+					continue;
+				}
+				writer.write(data + System.lineSeparator());
+				
+			}
+			if (userfound ==0){
+				System.out.println("No records found for user: " + username);
+			}
+			else {
+				System.out.println("Records deleted for user: " + username);
+			}
+			reader.close();
+		}catch(FileNotFoundException e) {
+			System.out.println("An error occured");
+			e.printStackTrace();
+		}catch (IOException e) {
+	        System.out.println("An error occurred while processing the file.");
+	        e.printStackTrace();
+	    }
+		if (buyhistory.delete()) {
+			if (tempfile.renameTo(buyhistory)) {
+		        System.out.println("File updated successfully.");
+		    } else {
+		        System.out.println("An error occurred while updating the file.");
+		    }
+		}
+		else {
+	        System.out.println("An error occurred while deleting the original file.");
+	    }
+		
+	}
+	
 	public static void cancelTrade() {
         System.out.println("");
 		System.out.println("Thank you for using our system. Goodbye!");
@@ -559,6 +665,8 @@ public class lin {
 		int main = 0;
 		String username ="";
 		int historyrequest = 0;
+		int viewhistory =0;
+		int confirmdelete=0;
 		
 		intro();
 		
@@ -599,22 +707,23 @@ public class lin {
 	        		
 	        }
 	        else if(choice ==3) {
-	        	System.out.print("Exiting...");
+	        	System.out.println("Exiting...");
 	        	main=0;
 	        	again=0;
 	        }
 	        else {
-	        		System.out.print("Invalid Choice. Please try again.");
+	        		System.out.println("Invalid Choice. Please try again.");
 	        		again=1;
 	        		main=0;
 			}
 	        
 	        while(main ==1) {
+	        	System.out.println("Are you selling or buying Fishes? ");
 	        	System.out.println("1. Sell");
 	        	System.out.println("2. Buy");
 	        	System.out.println("3. History");
 	        	System.out.println("4. Exit");
-	        	System.out.print("Are you selling or buying Fishes? ");
+	        	
 	        	int action = input.nextInt();
 	        	
 	        	if (action ==1) {
@@ -636,9 +745,48 @@ public class lin {
 	        		historyrequest = input.nextInt();
 	        		input.nextLine();
 	        		if (historyrequest == 1) {
-	        			readsellhistory(username);
+	        			System.out.println("Do you want to view /delete history");
+		        		System.out.println("1. View");
+		        		System.out.println("2. Delete");
+	        			viewhistory = input.nextInt();
+		        		input.nextLine();
+	        			if (viewhistory==1) {
+	        				readsellhistory(username);
+	        			}
+	        			else if (viewhistory ==2) {
+	        				System.out.println("Are you sure you want to delete your sales history? (No =0; Yes=1)");
+	        				confirmdelete = input.nextInt();
+			        		input.nextLine();
+			        		if (confirmdelete==0) {
+			        			readsellhistory(username);
+			        		}
+			        		else if(confirmdelete==1) {
+			        		deletesellhistory(username);
+			        		}
+	        				
+	        			}
 	        		}else if (historyrequest == 2) {
-	        			readbuyhistory(username);
+	        			System.out.println("Do you want to view /delete history");
+		        		System.out.println("1. View");
+		        		System.out.println("2. Delete");
+	        			viewhistory = input.nextInt();
+		        		input.nextLine();
+	        			if (viewhistory==1) {
+	        				readbuyhistory(username);
+	        			}
+	        			else if (viewhistory ==2) {
+	        				System.out.println("Are you sure you want to delete your buy history? (No =0; Yes=1)");
+	        				confirmdelete = input.nextInt();
+			        		input.nextLine();
+			        		if (confirmdelete==0) {
+			        			readbuyhistory(username);
+			        		}
+			        		else if(confirmdelete==1) {
+			        		deletebuyhistory(username);
+			        		}
+	        				
+	        			}
+	        			
 	        		}
 	        		
 	        	}
