@@ -14,3 +14,7 @@ f's Sales History:
 Fish Type: Freshwater Fish
 Total Price: RM20.0
 ----------------------------------
+jj's Sales History:
+Fish Type: Freshwater Fish
+Total Price: RM220.0
+----------------------------------

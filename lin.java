@@ -8,6 +8,12 @@ import java.io.IOException;
 
 public class lin {
 	
+	public static void intro() {
+        System.out.printf ("----------------------------------\n");
+        System.out.println ("Welcome to The Pekan Fishermen's Market!");
+        System.out.printf ("----------------------------------\n");
+	}
+	
 	public static boolean checkUser(String username,String password) {
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))){
@@ -540,6 +546,11 @@ public class lin {
 		}
 	}
 	
+	public static void cancelTrade() {
+        System.out.println("");
+		System.out.println("Thank you for using our system. Goodbye!");
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -549,9 +560,13 @@ public class lin {
 		String username ="";
 		int historyrequest = 0;
 		
+		intro();
+		
 		do{
 			System.out.println("Welcome to the System!");
-	        System.out.println("1. Register 2. Login");
+			System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
 	        System.out.print("Enter your choice: ");
 	        int choice = input.nextInt();
 	        input.nextLine();
@@ -583,6 +598,11 @@ public class lin {
 	        		}
 	        		
 	        }
+	        else if(choice ==3) {
+	        	System.out.print("Exiting...");
+	        	main=0;
+	        	again=0;
+	        }
 	        else {
 	        		System.out.print("Invalid Choice. Please try again.");
 	        		again=1;
@@ -590,7 +610,10 @@ public class lin {
 			}
 	        
 	        while(main ==1) {
-	        	System.out.println("1. Sell 2. Buy 3.History 4.Exit");
+	        	System.out.println("1. Sell");
+	        	System.out.println("2. Buy");
+	        	System.out.println("3. History");
+	        	System.out.println("4. Exit");
 	        	System.out.print("Are you selling or buying Fishes? ");
 	        	int action = input.nextInt();
 	        	
@@ -602,7 +625,7 @@ public class lin {
 	        	}
 	        	else if(action ==2) {
 	        		buying(username);
-	        		System.out.print("Do you have another things to doe? (No=0; Yes=1)");
+	        		System.out.print("Do you have another things to do? (No=0; Yes=1)");
         			main = input.nextInt();
         			input.nextLine();
 	        	}
@@ -625,10 +648,16 @@ public class lin {
 	        	}
 	        }
 	        
-	        System.out.print("Do you want to perform another action? (No =0; Yes=1)");
+	        System.out.print("Do you want to perform another account? (No =0; Yes=1)");
 	        again = input.nextInt();
 	        input.nextLine();
 	        
 		}while(again == 1);
+		
+		if (again==0) {
+			cancelTrade();
+		}
+		
+		
 	}
 }
