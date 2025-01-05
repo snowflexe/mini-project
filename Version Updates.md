@@ -6,4 +6,4 @@ v1.2
 
 -added admin feature and exit feature
 
--minor changes at the end, from "do you have another action" to "do you have another account"
+-minor changes at the end, from "do you want to perform another action" to "do you want to perform another account"
