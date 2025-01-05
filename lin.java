@@ -15,7 +15,7 @@ public class lin {
         System.out.printf ("----------------------------------\n");
 	}
 	
-	//login Iman
+	//login Lin +Iman
 	public static boolean checkUser(String username,String password) {
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))){
@@ -39,7 +39,7 @@ public class lin {
 		return false;
 	}
 	
-	//register Iman
+	//register Lin+Iman
 	public static boolean newUser(String newusername,String newpassword,int main) {
         try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))){
             String line ;
@@ -69,6 +69,38 @@ public class lin {
             e.printStackTrace();
         } 
         return true;
+    }
+	
+	//sharvesh veiw user
+	public static void viewUserAccounts() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("userinfo.txt"))) {
+            String line;
+            System.out.println("Registered Users:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line.split(":")[0]); // Print only the username
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No users registered yet.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading user accounts.");
+            e.printStackTrace();
+        }
+    }
+
+    //sharvesh  View sales history
+    public static void viewSalesHistory() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("history.txt"))) {
+            String line;
+            System.out.println("Sales History:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No sales history found.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading sales history.");
+            e.printStackTrace();
+        }
     }
 	
 	//when the fish is catch Lin
@@ -555,6 +587,23 @@ public class lin {
 			e.printStackTrace();
 		}
 	}
+	//read complete history Lin
+	public static void readFULLbuyhistory() {
+		try {
+			File buyhistory = new File("buyhistory.txt");
+			Scanner reader = new Scanner(buyhistory);
+
+			
+			while(reader.hasNextLine()) {
+				String data = reader.nextLine();
+					System.out.println(data);
+			}
+			reader.close();
+		}catch(FileNotFoundException e) {
+			System.out.println("An error occured");
+			e.printStackTrace();
+		}
+	}
 	
 	//deleting selling history Lin
 	public static void deletesellhistory(String username) {
@@ -674,6 +723,7 @@ public class lin {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		//Lin
 		Scanner input = new Scanner(System.in);
 		int again = 1;
 		int main = 0;
@@ -681,20 +731,20 @@ public class lin {
 		int historyrequest = 0;
 		int viewhistory =0;
 		int confirmdelete=0;
+		int on =1;
 		
 		intro();
 		
 		do{
-			//Sharvesh
 			System.out.println("Welcome to the System!");
 			System.out.println("1. Register");
             System.out.println("2. Login");
-            System.out.println("3. Exit");
+            System.out.println("3. Admin page");
+            System.out.println("4. Exit");
 	        System.out.print("Enter your choice: ");
 	        int choice = input.nextInt();
 	        input.nextLine();
 			
-	        //Lin
 	        if (choice == 1) {
 		        	System.out.print("Enter your Username: ");
 		    		String newusername = input.nextLine();
@@ -724,6 +774,53 @@ public class lin {
 	        }
 	        //Sharvesh
 	        else if(choice ==3) {
+	        	//Lin
+	        	System.out.print("Enter your Username: ");
+        		String adminusername = input.nextLine();
+        		System.out.print("Enter your Password: ");
+        		String adminpassword = input.nextLine();
+        		
+        		//Lin
+        		if (adminusername.equals("group7")&&adminpassword.equals("1234")) {
+        			while(on==1) {
+        				//Sharvesh
+	        			System.out.println("Admin Page");
+			            System.out.println("1. View User Accounts");
+			            System.out.println("2. View Sales History");
+			            System.out.println("3. View Buy History");
+			            System.out.println("4. Exit Admin Page");
+			            System.out.print("Enter your choice: ");
+			            int adminChoice = input.nextInt();
+			            input.nextLine();
+			            
+			            if (adminChoice == 1) {
+		                    viewUserAccounts();
+		                } else if (adminChoice == 2) {
+		                    viewSalesHistory();
+		                } else if (adminChoice == 4) {
+		                    System.out.println("Exiting Admin Page.");
+		                    on=0;
+		                } 
+			            //Lin
+		                else if (adminChoice == 3) {
+		                    readFULLbuyhistory();
+		                }else {
+		                    System.out.println("Invalid choice. Please try again.");
+		                }
+	        		}
+    			}
+    			else {
+    			System.out.println("Invalid username or password. Please try again.");
+    			main=0;
+    			again=1;
+        		}
+        		
+            
+	        }
+
+	        /////////////////////////////////////////////////////////////////
+	        
+	        else if(choice ==4) {
 	        	System.out.println("Exiting...");
 	        	main=0;
 	        	again=0;
@@ -734,7 +831,6 @@ public class lin {
 	        		main=0;
 			}
 	        
-	        //Lin
 	        while(main ==1) {
 	        	System.out.println("Are you selling or buying Fishes? ");
 	        	System.out.println("1. Sell");
