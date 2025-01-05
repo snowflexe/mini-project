@@ -787,7 +787,7 @@ public class lin {
 	        			System.out.println("Admin Page");
 			            System.out.println("1. View User Accounts");
 			            System.out.println("2. View Sales History");
-			            System.out.println("3. View Buy History");
+			            System.out.println("3. View Buy History");//Lin
 			            System.out.println("4. Exit Admin Page");
 			            System.out.print("Enter your choice: ");
 			            int adminChoice = input.nextInt();
